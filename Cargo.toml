@@ -1,17 +1,17 @@
 [package]
-name = "tokio-files"
+name = "file-transfer-tokio"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [[bin]]
-name = "client"
+name = "file-transfer-client"
 path = "src/client.rs"
 
 
 [[bin]]
-name = "server"
+name = "file-transfer-server"
 path = "src/server.rs"
 
 [lib]

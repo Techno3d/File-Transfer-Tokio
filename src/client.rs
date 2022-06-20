@@ -5,7 +5,7 @@ use std::rc::Rc;
 use tokio::fs::File;
 use tokio::io::{AsyncWriteExt, AsyncReadExt};
 use tokio::net::TcpSocket;
-use tokio_files::{Message, Arguments};
+use file_transfer_tokio::{Message, Arguments};
 
 use std::{env, process};
 
@@ -32,7 +32,7 @@ async fn main() {
     if contents.len() > 64 {  //If The size is greater than 1000 bytes we break it into smaller chunks
         let content_len: u64 = contents.len().try_into().unwrap();
         let message = Message {
-            status: tokio_files::Status::Multiple,
+            status: file_transfer_tokio::Status::Multiple,
             packets: content_len/64,
             file_name: args.output_name
         };
@@ -66,7 +66,7 @@ async fn main() {
 
     } else {  //Else we just send in one packet
         let message = Message {
-            status: tokio_files::Status::Single,
+            status: file_transfer_tokio::Status::Single,
             packets: 1,
             file_name: args.file_name
         };

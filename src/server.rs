@@ -1,7 +1,7 @@
 use bytes::BytesMut;
 use tokio::{net::TcpListener, fs::File};
 use tokio::io::{AsyncReadExt, BufReader, AsyncWriteExt, AsyncBufReadExt};
-use tokio_files::{Message, Status};
+use file_transfer_tokio::{Message, Status};
 
 #[tokio::main]
 async fn main() {
