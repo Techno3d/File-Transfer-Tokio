@@ -1,0 +1,25 @@
+[package]
+name = "tokio-files"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+
+[[bin]]
+name = "server"
+path = "src/server.rs"
+
+[lib]
+crate-type = ["lib"]
+path = "src/lib.rs"
+
+[dependencies]
+tokio = {version = "1.18.1", features = ["full"]}
+serde_json = "1.0.81"
+serde = { version = "1.0.137", features = ["derive"] }
+bytes = "1.1.0"
