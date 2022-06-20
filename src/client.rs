@@ -7,11 +7,11 @@ use tokio::io::{AsyncWriteExt, AsyncReadExt};
 use tokio::net::TcpSocket;
 use file_transfer_tokio::{Message, Arguments};
 
-use std::{env, process};
+use std::process;
 
 #[tokio::main]
 async fn main() {
-    let args = args();
+    let args = Arguments::new();
     println!("{}", args);
 
     let socket = TcpSocket::new_v4().unwrap(); 
@@ -85,36 +85,6 @@ async fn main() {
         reader.read_exact(&mut responce).await.unwrap();
         if responce[0] == 3u8 {
             eprintln!("Couldn't Send File Properly");
-        }
-    }
-}
-
-fn args() -> Arguments {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 3 {
-        eprintln!("Specify a file to transfer, and server");
-        process::exit(1);
-    } else if args.len() == 3 {
-        if args.get(1).unwrap() == "--help" || args.get(1).unwrap() == "-h" { 
-            println!("Must have a server open at 192.168.0.34:8080\n\n\n1st option: the file to transfer\n2nd option: server address\n3nd option (optional): name of the file (do not include file extention)");
-            process::exit(0);
-        } else {
-            let file_name = args.get(1).unwrap();
-            let (_, ext) = file_name.split_at(file_name.find(".").unwrap());
-            Arguments {
-                file_name: args.get(1).unwrap().to_string(),
-                output_name: format!("output{}", ext.trim()).to_string(),
-                server_addr: args.get(2).unwrap().to_owned()
-           }
-        }
-
-    } else {
-        let file_name = args.get(1).unwrap();
-        let (_, ext) = file_name.split_at(file_name.find(".").unwrap());
-        Arguments {
-            file_name: args.get(1).unwrap().to_string(),
-            output_name: format!("{}{}", args.get(3).unwrap().to_string(), ext.trim()),
-            server_addr: args.get(2).unwrap().to_owned()
         }
     }
 }
